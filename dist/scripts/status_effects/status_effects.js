@@ -32,6 +32,9 @@ class StatusEffects {
             config: true,
             type: Boolean,
             default: false,
+            onChange: () => {
+                window.location.reload();
+            }
         });
     }
     set_level_effects(type, id) {
@@ -100,6 +103,12 @@ class StatusEffects {
                 }
             }));
         });
+        //Status linking for new tokens
+        if (game.settings.get("swade-toolkit", "wound-status-effects")) {
+            Hooks.on("createToken", (scene, token, options, id) => {
+                this.set_level_effects('token', token._id);
+            });
+        }
         //Status Linking for NPCs
         Hooks.on("updateToken", (scene, tokenDiff, data, diff, userId) => {
             var _a, _b, _c, _d, _e, _f;
