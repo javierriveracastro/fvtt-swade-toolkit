@@ -20,6 +20,9 @@ class StatusEffects {
     constructor() {
         this.registerSettings();
         this.startStatusLinkingListeners();
+        if (game.settings.get("swade-toolkit", "wound-status-effects")) {
+            this.register_effect_icons();
+        }
     }
     registerSettings() {
         game.settings.register("swade-toolkit", "link-status-effects", {
@@ -39,6 +42,13 @@ class StatusEffects {
                 window.location.reload();
             }
         });
+    }
+    register_effect_icons() {
+        CONFIG.statusEffects.push({ icon: FATIGUE_ICONS + '1.png', id: 'fatigue1', label: "SWADE.Fatigue" });
+        CONFIG.statusEffects.push({ icon: FATIGUE_ICONS + '2.png', id: 'fatigue2', label: "SWADE.Fatigue" });
+        for (let i = 1; i <= 6; i++) {
+            CONFIG.statusEffects.push({ icon: WOUND_ICONS + i + '.png', id: 'wound' + i, label: "SWADE.Wound" });
+        }
     }
     set_level_effects(type, id) {
         let target = type == 'token' ? canvas.tokens.get(id) : id.getActiveTokens()[0];
