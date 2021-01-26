@@ -1,3 +1,7 @@
+// Global constants
+const FATIGUE_ICONS = 'modules/swade-toolkit/assets/icons/f'
+const WOUND_ICONS = 'modules/swade-toolkit/assets/icons/w'
+
 //register settings
 Hooks.on("ready", () => {
   game.toolkit = {
@@ -36,14 +40,14 @@ class StatusEffects {
         for (let i = 1; i < 7; i++) {
             if (i <= 2) {
                 // Fatigue
-                let icon = `modules/swade-toolkit/assets/icons/f${i}.png`
+                let icon = FATIGUE_ICONS + `${i}.png`;
                 let should_be = i === target.actor.data.data.fatigue.value;
                 let is = target.data.effects.indexOf(icon) >= 0;
                 if (should_be !== is) {
                   target.toggleEffect(icon, {active: should_be, overlay: false });
                 }
             }
-            let icon = `modules/swade-toolkit/assets/icons/w${i}.png`
+            let icon = WOUND_ICONS + `${i}.png`;
             let should_be = i === target.actor.data.data.wounds.value;
             let is = target.data.effects.indexOf(icon) >= 0;
             if (should_be !== is) {
